@@ -1,0 +1,67 @@
+# Python bytecode & cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+.python-version
+__pypackages__/
+
+# Environment files
+.env
+.env.*
+
+# Packaging / build artifacts
+build/
+dist/
+.eggs/
+*.egg-info/
+*.egg
+wheels/
+share/python-wheels/
+sdist/
+MANIFEST
+
+# PyInstaller
+*.spec
+
+# Test / coverage / tooling caches
+.cache/
+.pytest_cache/
+.mypy_cache/
+.pyre/
+.pytype/
+.ruff_cache/
+.tox/
+.coverage
+.coverage.*
+coverage.xml
+nosetests.xml
+test-results.xml
+
+# Logs
+logs/
+*.log
+
+# IDE/editor settings
+.vscode/
+.idea/
+*.code-workspace
+.history/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Application-specific
+# User-specific runtime settings; keep out of source control
+settings.json
+
+# Cursor IDE
+.cursorrules
+.cursor
