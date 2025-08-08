@@ -190,6 +190,15 @@ class SettingsPanel:
         )
         hotkey_label.pack(fill="x", pady=(0, 5))
         
+        # Hotkey format hint
+        hint_label = StyleHelper.create_label(
+            hotkey_frame,
+            text="e.g., ctrl+s, alt+f4",
+            style='small',
+            anchor='w'
+        )
+        hint_label.pack(fill="x", pady=(0, 10))
+        
         # Start recording hotkey
         self._create_hotkey_input(
             hotkey_frame, 

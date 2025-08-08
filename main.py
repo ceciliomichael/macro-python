@@ -27,7 +27,7 @@ class MacroRecorderGUI:
         # Window configuration
         self.root.title(" Macro Recorder - AFK Helper")
         self.root.geometry("1000x700")
-        self.root.minsize(1250, 650)  # Minimum size
+        self.root.minsize(1250, 900)  # Minimum size
         self.root.resizable(True, True)
         
         # Initialize core components
