@@ -16,6 +16,7 @@ from gui import (
 )
 from gui.advanced_hotkey_manager import AdvancedHotkeyManager
 from settings_manager import SettingsManager
+from scheduler import MacroScheduler
 
 class MacroRecorderGUI:
     def __init__(self, root):
@@ -41,6 +42,7 @@ class MacroRecorderGUI:
         # Initialize managers
         self.hotkey_manager = AdvancedHotkeyManager(self)
         self.movement_display = None  # Will be initialized after GUI creation
+        self.scheduler = MacroScheduler(self)
         
         # GUI components
         self.title_section = None
@@ -285,6 +287,15 @@ class MacroRecorderGUI:
                 if geometry and geometry != "1000x700":
                     self.root.geometry(geometry)
             
+            # Apply scheduler settings
+            scheduler_settings = settings.get("scheduler", {})
+            enabled = scheduler_settings.get("enabled", False)
+            schedules = scheduler_settings.get("schedules", [])
+            self.scheduler.set_schedules(schedules)
+            self.scheduler.set_enabled(enabled)
+            if hasattr(self.settings_panel, 'set_scheduler_state'):
+                self.settings_panel.set_scheduler_state(enabled, schedules)
+            
             print("✅ Settings loaded successfully")
             
         except Exception as e:
@@ -309,6 +320,14 @@ class MacroRecorderGUI:
                 interval=self.interval_var.get(),
                 loop=self.loop_var.get()
             )
+            
+            # Update scheduler settings
+            if hasattr(self.settings_panel, 'get_scheduler_state'):
+                sched_enabled, schedules = self.settings_panel.get_scheduler_state()
+                self.settings_manager.set_scheduler_settings(sched_enabled, schedules)
+                # Also update live scheduler
+                self.scheduler.set_schedules(schedules)
+                self.scheduler.set_enabled(sched_enabled)
             
             # Save to file
             success = self.settings_manager.save_settings()
@@ -373,6 +392,8 @@ class MacroRecorderGUI:
         # Cleanup managers
         if self.hotkey_manager:
             self.hotkey_manager.cleanup()
+        if self.scheduler:
+            self.scheduler.stop()
         
         self.root.destroy()
 

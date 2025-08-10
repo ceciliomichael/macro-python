@@ -24,6 +24,10 @@ class SettingsManager:
                 "repeat_interval": "60",
                 "loop_continuously": True
             },
+            "scheduler": {
+                "enabled": False,
+                "schedules": []
+            },
             "last_saved": None
         }
         self.current_settings = self.default_settings.copy()
@@ -159,4 +163,24 @@ class SettingsManager:
             "last_saved": self.current_settings.get("last_saved"),
             "hotkeys_count": len(self.current_settings.get("hotkeys", {})),
             "settings_count": sum(len(v) if isinstance(v, dict) else 1 for v in self.current_settings.values())
+        }
+
+    # Scheduler settings helpers
+    def get_scheduler_settings(self):
+        return self.current_settings.get("scheduler", self.default_settings["scheduler"]).copy()
+
+    def set_scheduler_enabled(self, enabled: bool):
+        sched = self.current_settings.get("scheduler", {}).copy()
+        sched["enabled"] = bool(enabled)
+        self.current_settings["scheduler"] = sched
+
+    def set_schedules(self, schedules):
+        sched = self.current_settings.get("scheduler", {}).copy()
+        sched["schedules"] = schedules or []
+        self.current_settings["scheduler"] = sched
+
+    def set_scheduler_settings(self, enabled: bool, schedules):
+        self.current_settings["scheduler"] = {
+            "enabled": bool(enabled),
+            "schedules": schedules or []
         }

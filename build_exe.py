@@ -47,7 +47,10 @@ a = Analysis(
         'gui.components',
         'gui.hotkey_manager',
         'gui.movement_display',
-        'gui.editable_movements'
+        'gui.editable_movements',
+        'scheduler',
+        'tkinter',
+        'tkinter.ttk'
     ],
     hookspath=[],
     hooksconfig={},
